@@ -4,9 +4,9 @@ I'm a developer with a love for web development and automation.
 
 At the moment, I'm helping organise logistics with the awesome crew at [UNIHACK](https://unihack.net).
 
-I believe in **learning in public**. I always endeavour to put my work on GitHub and to write about it on [my blog](https://nicholas.cloud/blog/) ([RSS](https://nicholas.cloud/rss/)), so I can share what I'm learning with those around me.
+You can read posts about my interests on [my blog](https://nicholas.cloud/) or via [my RSS feed](https://nicholas.cloud/rss/). I tend to write about music, weekend projects and short technical dives into the software I use.
 
-When I'm not coding up a storm, you're likely to find me practising trombone, euphonium or piano! :musical_note: :musical_note: :musical_note:
+When I'm not coding, I'm likely playing brass/piano or at band rehearsal! :musical_note: :musical_note: :musical_note:
 
 ---
 
