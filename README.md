@@ -10,7 +10,7 @@ When I'm not coding, I'm likely playing brass/piano or at band rehearsal! :music
 
 ---
 
-<p align="center">If you'd like reach me, you can find me on all of these places. My email is on the sidebar to the left!</p>
+<p align="center">If you'd like reach me, you can find me on the following places. My email is on the sidebar to the left!</p>
 
 <p align="center">
   <a href="https://nicholas.cloud/">Website</a> &bull;
