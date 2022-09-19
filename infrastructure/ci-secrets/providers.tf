@@ -2,12 +2,12 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 3.56.0"
+      version = "~> 4.0"
     }
 
     pass = {
       source  = "nicholas.cloud/nchlswhttkr/pass"
-      version = ">= 0.1"
+      version = "~> 0.1"
     }
   }
 }

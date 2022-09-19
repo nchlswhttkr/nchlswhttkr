@@ -4,7 +4,7 @@ terraform {
   required_providers {
     pass = {
       source  = "nicholas.cloud/nchlswhttkr/pass"
-      version = ">= 0.1"
+      version = "~> 0.1"
     }
   }
 

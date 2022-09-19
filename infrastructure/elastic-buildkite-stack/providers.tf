@@ -2,15 +2,14 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 3.56.0"
+      version = "~> 4.0"
     }
 
     pass = {
       source  = "nicholas.cloud/nchlswhttkr/pass"
-      version = ">= 0.1"
+      version = "~> 0.1"
     }
   }
-
 }
 
 provider "aws" {
@@ -30,8 +29,4 @@ data "pass_password" "aws_access_key_id" {
 
 data "pass_password" "aws_access_key_secret" {
   name = "website/aws-access-key-secret"
-}
-
-provider "pass" {
-  store = "/Users/nchlswhttkr/Google Drive/.password-store"
 }
