@@ -18,3 +18,7 @@ data "aws_kms_key" "default" {
     aws_ssm_parameter.buildkite_agent_token
   ]
 }
+
+output "secrets_bucket_name" {
+  value = aws_cloudformation_stack.buildkite.outputs.ManagedSecretsBucket
+}
