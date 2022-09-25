@@ -13,7 +13,7 @@ terraform {
 }
 
 provider "aws" {
-  region     = "ap-southeast-2"
+  region     = "us-east-1"
   access_key = data.pass_password.aws_access_key_id.password
   secret_key = data.pass_password.aws_access_key_secret.password
   default_tags {

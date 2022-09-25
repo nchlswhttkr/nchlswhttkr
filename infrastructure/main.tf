@@ -28,12 +28,3 @@ module "buildkite" {
     pass = pass
   }
 }
-
-module "ci_secrets" {
-  source = "./ci-secrets"
-  providers = {
-    pass = pass
-  }
-
-  buildkite_secrets_bucket_name = module.buildkite.secrets_bucket_name
-}

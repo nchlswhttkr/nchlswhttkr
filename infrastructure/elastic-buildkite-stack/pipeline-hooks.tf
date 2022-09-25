@@ -1,5 +1,16 @@
+resource "aws_s3_object" "terraform_provider_pass_environment" {
+  bucket                 = aws_cloudformation_stack.buildkite.outputs.ManagedSecretsBucket
+  key                    = "terraform-provider-pass/environment"
+  server_side_encryption = "aws:kms"
+  content                = <<-EOF
+    #!/bin/bash
+    set -euo pipefail
+    export BUILDKITE_GIT_FETCH_FLAGS="-v --prune --tags"
+  EOF
+}
+
 resource "aws_s3_object" "website_environment" {
-  bucket                 = var.buildkite_secrets_bucket_name
+  bucket                 = aws_cloudformation_stack.buildkite.outputs.ManagedSecretsBucket
   key                    = "website/environment"
   server_side_encryption = "aws:kms"
   content                = <<-EOF

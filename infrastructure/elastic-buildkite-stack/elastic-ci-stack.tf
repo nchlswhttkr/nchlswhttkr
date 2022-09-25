@@ -8,6 +8,7 @@ resource "aws_cloudformation_stack" "buildkite" {
     InstanceType                            = "t3a.small"
     RootVolumeSize                          = 25
     OnDemandPercentage                      = 0
+    ScaleInIdlePeriod                       = 300 # 5 minutes
     BuildkiteAgentExperiments               = "ansi-timestamps,resolve-commit-after-checkout"
   }
 }
