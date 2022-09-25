@@ -7,10 +7,21 @@ terraform {
       version = "~> 4.0"
     }
 
+    github = {
+      source  = "integrations/github"
+      version = "~> 4.13"
+    }
+
     pass = {
       source  = "nicholas.cloud/nchlswhttkr/pass"
       version = "~> 0.1"
     }
+
+    tls = {
+      source  = "hashicorp/tls"
+      version = "~> 4.0"
+    }
+
   }
 
   backend "local" {
@@ -22,9 +33,18 @@ provider "pass" {
   store = "/Users/nchlswhttkr/Google Drive/.password-store"
 }
 
+provider "github" {
+  token = data.pass_password.github_secret_token.password
+}
+
+data "pass_password" "github_secret_token" {
+  name = "website/github-access-token"
+}
+
 module "buildkite" {
   source = "./elastic-buildkite-stack"
   providers = {
-    pass = pass
+    pass   = pass
+    github = github
   }
 }

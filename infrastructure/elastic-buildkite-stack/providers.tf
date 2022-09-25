@@ -5,10 +5,21 @@ terraform {
       version = ">= 4.0"
     }
 
+    github = {
+      source  = "integrations/github"
+      version = ">= 4.0"
+    }
+
     pass = {
       source  = "nicholas.cloud/nchlswhttkr/pass"
       version = ">= 0.1"
     }
+
+    tls = {
+      source  = "hashicorp/tls"
+      version = ">= 4.0"
+    }
+
   }
 }
 
