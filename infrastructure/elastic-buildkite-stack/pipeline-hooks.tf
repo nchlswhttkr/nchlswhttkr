@@ -37,3 +37,25 @@ data "pass_password" "website_cloudflare_api_token" {
 data "pass_password" "website_cloudflare_zone_id" {
   name = "website/cloudflare-zone-id"
 }
+
+resource "aws_s3_object" "bandcamp_mini_embed_environment" {
+  bucket                 = aws_cloudformation_stack.buildkite.outputs.ManagedSecretsBucket
+  key                    = "bandcamp-mini-embed/environment"
+  server_side_encryption = "aws:kms"
+  content                = <<-EOF
+    #!/bin/bash
+    set -euo pipefail
+    if [[ "$BUILDKITE_STEP_KEY" =~ "deploy" ]]; then
+      export CLOUDFLARE_ACCOUNT_ID="${data.pass_password.bandcamp_mini_embed_cloudflare_account_id.password}"
+      export CLOUDFLARE_API_TOKEN="${data.pass_password.bandcamp_mini_embed_cloudflare_api_token.password}"
+    fi
+  EOF
+}
+
+data "pass_password" "bandcamp_mini_embed_cloudflare_api_token" {
+  name = "bandcamp-mini-embed/cloudflare-api-token"
+}
+
+data "pass_password" "bandcamp_mini_embed_cloudflare_account_id" {
+  name = "bandcamp-mini-embed/cloudflare-account-id"
+}
