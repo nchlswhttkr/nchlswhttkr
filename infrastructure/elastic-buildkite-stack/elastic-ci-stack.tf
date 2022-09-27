@@ -5,11 +5,16 @@ resource "aws_cloudformation_stack" "buildkite" {
   parameters = {
     BuildkiteAgentTokenParameterStorePath   = resource.aws_ssm_parameter.buildkite_agent_token.name
     BuildkiteAgentTokenParameterStoreKMSKey = data.aws_kms_key.default.id
-    InstanceType                            = "t3a.small"
-    RootVolumeSize                          = 25
-    OnDemandPercentage                      = 0
-    ScaleInIdlePeriod                       = 300 # 5 minutes
-    BuildkiteAgentExperiments               = "ansi-timestamps,resolve-commit-after-checkout"
+
+    # EC2 Instance
+    InstanceType       = "t3a.micro"
+    RootVolumeSize     = 20
+    OnDemandPercentage = 0
+
+    # Agent Settings
+    AgentsPerInstance         = 2
+    ScaleInIdlePeriod         = 300 # 5 minutes
+    BuildkiteAgentExperiments = "ansi-timestamps,resolve-commit-after-checkout"
   }
 }
 
@@ -19,8 +24,4 @@ data "aws_kms_key" "default" {
   depends_on = [
     aws_ssm_parameter.buildkite_agent_token
   ]
-}
-
-output "secrets_bucket_name" {
-  value = aws_cloudformation_stack.buildkite.outputs.ManagedSecretsBucket
 }
