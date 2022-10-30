@@ -6,7 +6,25 @@ resource "aws_s3_object" "terraform_provider_pass_environment" {
     #!/bin/bash
     set -euo pipefail
     export BUILDKITE_GIT_FETCH_FLAGS="-v --prune --tags"
+
+    if [[ "$BUILDKITE_STEP_KEY" == "release" ]]; then
+      export GITHUB_ACCESS_TOKEN="${data.pass_password.terraform_provider_pass_github_access_token.password}"
+      export GPG_SIGNING_KEY="${data.pass_password.terraform_provider_pass_gpg_signing_key.password}"
+      export GPG_SIGNING_KEY_PASSPHRASE="${data.pass_password.terraform_provider_pass_gpg_signing_key_passphrase.password}"
+    fi
   EOF
+}
+
+data "pass_password" "terraform_provider_pass_github_access_token" {
+  name = "terraform-provider-pass/github-access-token"
+}
+
+data "pass_password" "terraform_provider_pass_gpg_signing_key" {
+  name = "terraform-provider-pass/gpg-signing-key"
+}
+
+data "pass_password" "terraform_provider_pass_gpg_signing_key_passphrase" {
+  name = "terraform-provider-pass/gpg-signing-key-passphrase"
 }
 
 resource "aws_s3_object" "website_environment" {
