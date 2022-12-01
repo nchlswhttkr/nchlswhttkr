@@ -22,6 +22,10 @@ terraform {
       version = "~> 4.0"
     }
 
+    vault = {
+      source  = "hashicorp/vault"
+      version = "~> 3.10"
+    }
   }
 
   backend "local" {
@@ -34,11 +38,22 @@ provider "pass" {
 }
 
 provider "github" {
-  token = data.pass_password.github_secret_token.password
+  token = data.vault_kv_secret_v2.github.data.access_token
 }
 
-data "pass_password" "github_secret_token" {
-  name = "website/github-access-token"
+data "vault_kv_secret_v2" "github" {
+  mount = "kv"
+  name  = "nchlswhttkr/github"
+}
+
+provider "vault" {
+  address = "http://phoenix:8200"
+  token   = var.vault_token
+}
+
+variable "vault_token" {
+  description = "The authentication token to use with Hashicorp Vault for credentials"
+  type        = string
 }
 
 module "buildkite" {
@@ -47,4 +62,7 @@ module "buildkite" {
     pass   = pass
     github = github
   }
+
+  vault_role_id   = vault_approle_auth_backend_role.buildkite.role_id
+  vault_secret_id = vault_approle_auth_backend_role_secret_id.buildkite.secret_id
 }

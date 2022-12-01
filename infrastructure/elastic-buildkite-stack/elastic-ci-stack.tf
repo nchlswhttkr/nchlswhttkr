@@ -5,13 +5,15 @@ resource "aws_cloudformation_stack" "buildkite" {
   parameters = {
     # https://buildkite.com/docs/agent/v3/elastic-ci-aws/parameters
     BuildkiteAgentTokenParameterStorePath   = resource.aws_ssm_parameter.buildkite_agent_token.name
-    BuildkiteAgentTokenParameterStoreKMSKey = data.aws_kms_key.default.id
+    BuildkiteAgentTokenParameterStoreKMSKey = data.aws_kms_key.ssm_default.id
 
     # Auto-scaling EC2 instances
     MaxSize            = 3
     InstanceType       = "t3a.micro"
     RootVolumeSize     = 20
     OnDemandPercentage = 0
+    BootstrapScriptUrl = "s3://${aws_s3_bucket.bootstrap.bucket}/${aws_s3_object.bootstrap_script.id}"
+    ManagedPolicyARN   = aws_iam_policy.bootstrap_tailscale.arn
 
     # Buildkite agent settings
     AgentsPerInstance         = 2
@@ -20,7 +22,7 @@ resource "aws_cloudformation_stack" "buildkite" {
   }
 }
 
-data "aws_kms_key" "default" {
+data "aws_kms_key" "ssm_default" {
   key_id = "alias/aws/ssm"
 
   depends_on = [
