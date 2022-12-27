@@ -25,7 +25,7 @@ resource "github_repository_deploy_key" "terraform_provider_pass" {
   for_each = local.deploy_key_for_pipeline_to_repo
 
   title      = "Allow SSH access to ${each.value} from Buildkite pipeline ${each.key}"
-  repository = "terraform-provider-pass"
+  repository = each.value
   read_only  = true
   key        = tls_private_key.ssh_deploy_key[each.key].public_key_openssh
 }
