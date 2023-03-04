@@ -1,6 +1,6 @@
 resource "aws_cloudformation_stack" "buildkite" {
   name         = "elastic-buildkite-stack"
-  template_url = "https://s3.amazonaws.com/buildkite-aws-stack/v5.11.1/aws-stack.yml"
+  template_url = "https://s3.amazonaws.com/buildkite-aws-stack/v5.17.0/aws-stack.yml"
   capabilities = ["CAPABILITY_NAMED_IAM", "CAPABILITY_AUTO_EXPAND"]
   parameters = {
     # https://buildkite.com/docs/agent/v3/elastic-ci-aws/parameters
